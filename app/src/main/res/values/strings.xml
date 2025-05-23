@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Test App</string>
+    <string name="screen1_name">Screen One</string>
+    <string name="screen2_name">Screen Two</string>
+</resources>
