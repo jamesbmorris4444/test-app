@@ -1,7 +1,8 @@
 package com.jbm.testapp.viewstates
 
+import com.jbm.testapp.repository.storage.Fruit
+
 data class Screen1ViewState (
-    var launchesAvailable: List<String>? = null,
-    var launchesFailure: String = "",
-    val progressBarState: Boolean = false
+    var fruitsAvailable: List<Fruit>? = null,
+    var fruitsFailure: String = ""
 )

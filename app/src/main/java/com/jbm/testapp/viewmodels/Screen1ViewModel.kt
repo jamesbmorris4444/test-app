@@ -2,6 +2,7 @@ package com.jbm.testapp.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jbm.testapp.repository.Repository
 import com.jbm.testapp.viewstates.Screen1ViewState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,33 +16,24 @@ class Screen1ViewModel : ViewModel() {
 
     sealed class Screen1Intent {
         data object loadScreen1Data : Screen1Intent()
-        data object failureDialogDismissed : Screen1Intent()
+        data class fruitsApiFailure(val message: String) : Screen1Intent()
     }
 
     fun handleIntent(intent: Screen1Intent) {
         when (intent) {
-            is Screen1Intent.loadScreen1Data -> rocketApiCall()
-            is Screen1Intent.failureDialogDismissed -> {
+            is Screen1Intent.loadScreen1Data -> fruitsApiCall()
+            is Screen1Intent.fruitsApiFailure -> {
                 mutableScreen1iewState.value = Screen1ViewState(
-                    launchesFailure = ""
+                    fruitsFailure = intent.message
                 )
             }
         }
     }
 
-    private fun rocketApiCall() {
-        val composableScope = viewModelScope
-        composableScope.launch {
-            getSpaceXLaunches(composableScope)
-        }
-    }
-
-    private suspend fun getSpaceXLaunches(composableScope: CoroutineScope) {
-        //ApiCall
-        mutableScreen1iewState.value = Screen1ViewState(
-            launchesAvailable = listOf(),
-            launchesFailure = "",
-            progressBarState = false
+    fun fruitsApiCall() {
+        Repository.getFruitDataList(
+            { mutableScreen1iewState.value = Screen1ViewState(fruitsAvailable = it) },
+            { mutableScreen1iewState.value = Screen1ViewState(fruitsFailure = it.message ?: "NO FAILURE MESSAGE") }
         )
     }
 }
