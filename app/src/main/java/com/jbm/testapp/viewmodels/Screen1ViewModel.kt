@@ -16,17 +16,11 @@ class Screen1ViewModel : ViewModel() {
 
     sealed class Screen1Intent {
         data object loadScreen1Data : Screen1Intent()
-        data class fruitsApiFailure(val message: String) : Screen1Intent()
     }
 
     fun handleIntent(intent: Screen1Intent) {
         when (intent) {
             is Screen1Intent.loadScreen1Data -> fruitsApiCall()
-            is Screen1Intent.fruitsApiFailure -> {
-                mutableScreen1iewState.value = Screen1ViewState(
-                    fruitsFailure = intent.message
-                )
-            }
         }
     }
 

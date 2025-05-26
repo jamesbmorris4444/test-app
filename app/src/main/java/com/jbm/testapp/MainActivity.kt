@@ -11,7 +11,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, true)
         setContent {
-            ScreenNavigator(rememberNavController())
+            ScreenNavigator(rememberNavController(), { finish() })
         }
     }
 }

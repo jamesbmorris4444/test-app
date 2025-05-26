@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -51,6 +52,7 @@ enum class ScreenNames(val resId: Int) {
 @Composable
 fun ScreenNavigator(
     navController: NavHostController,
+    quit: () -> Unit
 ) {
     var appBarState by remember { mutableStateOf(AppBarState()) }
     Scaffold(
@@ -70,6 +72,7 @@ fun ScreenNavigator(
             ) {
                 composable(route = screen1Name) {
                     Screen1Screen(
+                        navController = navController,
                         configAppBar = { appBarState = it },
                         canNavigateBack = navController.previousBackStackEntry != null,
                         navigateUp = { navController.navigateUp() },
@@ -80,6 +83,7 @@ fun ScreenNavigator(
                 }
                 composable(route = screen2Name) {
                     Screen1Screen(
+                        navController = navController,
                         configAppBar = { appBarState = it },
                         canNavigateBack = navController.previousBackStackEntry != null,
                         navigateUp = { navController.navigateUp() },
@@ -98,7 +102,7 @@ fun StartScreenAppBar(
     appBarState: AppBarState
 ) {
     TopAppBar(
-        title = { Text(appBarState.title) },
+        title = { Text(text = appBarState.title, fontSize = 22.sp) },
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = colorResource(R.color.teal_200)
         ),
