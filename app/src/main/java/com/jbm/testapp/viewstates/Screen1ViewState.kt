@@ -1,9 +1,9 @@
 package com.jbm.testapp.viewstates
 
-import com.jbm.testapp.repository.storage.Fruit
+import com.jbm.testapp.repository.storage.Country
 
 data class Screen1ViewState (
-    var fruitsAvailable: List<Fruit>? = null,
-    var fruitsFailure: String = "",
-    var emptyScreenAfterfailure: List<Fruit> = listOf()
+    var countriesAvailable: List<Country>? = null,
+    var countriesFailure: String = "",
+    var emptyScreenAfterfailure: List<Country> = listOf()
 )

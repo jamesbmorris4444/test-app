@@ -1,20 +1,25 @@
 package com.jbm.testapp.repository.storage
 
 import com.google.gson.annotations.SerializedName
+import org.intellij.lang.annotations.Language
 
-class Fruit {
+class Country {
+    @SerializedName("capital") var capital: String= ""
+    @SerializedName("code") var code: String = ""
+    @SerializedName("currency") var currency: Currency = Currency()
+    @SerializedName("flag") var flag: String = ""
+    @SerializedName("language") var language: Language = Language()
     @SerializedName("name") var name: String= ""
-    @SerializedName("id") var id: Int = 0
-    @SerializedName("family") var family: String = ""
-    @SerializedName("order") var order: String = ""
-    @SerializedName("genus") var genus: String = ""
-    @SerializedName("nutritions") var nutritions: Nutritions = Nutritions()
+    @SerializedName("region") var region: String = ""
 
-    inner class Nutritions {
-        @SerializedName("calories") var calories: Int = 0
-        @SerializedName("fat") var fat: Float = 0f
-        @SerializedName("sugar") var sugar: Float = 0f
-        @SerializedName("carbohydrates") var carbohydrates:  Float = 0f
-        @SerializedName("protein") var protein:  Float = 0f
+    inner class Currency {
+        @SerializedName("code") var code: String = ""
+        @SerializedName("name") var name: String = ""
+        @SerializedName("symbol") var symbol: String = ""
+    }
+
+    inner class Language {
+        @SerializedName("code") var code: String = ""
+        @SerializedName("name") var name: String = ""
     }
 }

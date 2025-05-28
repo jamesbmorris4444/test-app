@@ -8,7 +8,7 @@ import com.jbm.testapp.BottomNavItem
 
 object Constants {
 
-    const val BASE_URL = "https://www.fruityvice.com/api/fruit/"
+    const val BASE_URL = "https://gist.githubusercontent.com"
 
     // Bottom Navigation Bar Items
 

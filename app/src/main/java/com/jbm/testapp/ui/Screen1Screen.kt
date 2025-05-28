@@ -1,4 +1,5 @@
 package com.jbm.testapp.ui
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -9,7 +10,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material.Button
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Divider
@@ -19,6 +19,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.AlertDialog
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -39,7 +40,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.jbm.testapp.AppBarState
 import com.jbm.testapp.R
-import com.jbm.testapp.repository.storage.Fruit
+import com.jbm.testapp.repository.storage.Country
 import com.jbm.testapp.viewmodels.Screen1ViewModel
 import com.jbm.testapp.viewstates.Screen1ViewState
 
@@ -125,56 +126,39 @@ fun Screen1Screen(
     }
 
     @Composable
-    fun FruitsElementText(
+    fun CountriesElementText(
         name: String,
-        id: String,
-        family: String,
-        order: String,
-        genus: String,
-        calories: String,
-        fat: String,
-        sugar: String,
-        carbohydrates: String,
-        protein: String
+        region: String,
+        code: String,
+        capital: String
     ) {
-        ListDisplayText("fruit name", name)
-        ListDisplayText("fruit id", id)
-        ListDisplayText("fruit family", family)
-        ListDisplayText("fruit order", order)
-        ListDisplayText("fruit genus", genus)
-        ListDisplayText("calories", calories)
-        ListDisplayText("fat", fat)
-        ListDisplayText("sugar", sugar)
-        ListDisplayText("carbohydrates", carbohydrates)
-        ListDisplayText("protein", protein)
+        Text("")
+        Text("$name, $region          $code")
+        Text("")
+        Text(capital)
+        Text("")
         Divider(modifier = Modifier.padding(top = 4.dp, bottom = 4.dp), color = colorResource(R.color.purple_200), thickness = 2.dp)
     }
 
     @Composable
-    fun FruitsHandler(
+    fun CountriesHandler(
         configAppBar: (AppBarState) -> Unit,
         title: String,
-        fruits: List<Fruit>
+        countries: List<Country>
     ) {
         @Composable
-        fun LaunchesList(fruits: List<Fruit>) {
+        fun LaunchesList(countries: List<Country>) {
             Spacer(modifier = Modifier.height(4.dp))
             Divider(modifier = Modifier.padding(top = 4.dp, bottom = 4.dp), color = colorResource(R.color.purple_200), thickness = 2.dp)
             LazyColumn {
-                fruits.forEachIndexed { index, _ ->
+                countries.forEachIndexed { index, _ ->
                     item {
-                        with (fruits[index]) {
-                            FruitsElementText(
+                        with (countries[index]) {
+                            CountriesElementText(
                                 name,
-                                id.toString(),
-                                family,
-                                order,
-                                genus,
-                                nutritions.calories.toString(),
-                                nutritions.fat.toString(),
-                                nutritions.sugar.toString(),
-                                nutritions.carbohydrates.toString(),
-                                nutritions.protein.toString(),
+                                region,
+                                code,
+                                capital
                             )
                         }
                     }
@@ -214,18 +198,18 @@ fun Screen1Screen(
                     .align(Alignment.TopCenter),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                LaunchesList(fruits)
+                LaunchesList(countries)
             }
         }
     }
 
     when {
-        screen1ViewState.fruitsFailure.isNotEmpty() -> handleFailure(screen1ViewState.fruitsFailure)
-        screen1ViewState.fruitsAvailable != null -> screen1ViewState.fruitsAvailable ?.let {
-            FruitsHandler(
+        screen1ViewState.countriesFailure.isNotEmpty() -> handleFailure(screen1ViewState.countriesFailure)
+        screen1ViewState.countriesAvailable != null -> screen1ViewState.countriesAvailable ?.let {
+            CountriesHandler(
                 configAppBar = configAppBar,
                 title = title,
-                fruits = it)
+                countries = it)
         } else -> {
             CircularProgressBar()
             viewModel.handleIntent(Screen1ViewModel.Screen1Intent.loadScreen1Data)

@@ -18,15 +18,15 @@ class Screen1ViewModel : ViewModel() {
 
     fun handleIntent(intent: Screen1Intent) {
         when (intent) {
-            is Screen1Intent.loadScreen1Data -> fruitsApiCall()
-            is Screen1Intent.emptyScreenAfterFailure -> mutableScreen1ViewState.value = Screen1ViewState(fruitsAvailable = listOf(), fruitsFailure = "")
+            is Screen1Intent.loadScreen1Data -> countriesApiCall()
+            is Screen1Intent.emptyScreenAfterFailure -> mutableScreen1ViewState.value = Screen1ViewState(countriesAvailable = listOf(), countriesFailure = "")
         }
     }
 
-    private fun fruitsApiCall() {
-        Repository.getFruitDataList(
-            { mutableScreen1ViewState.value = Screen1ViewState(fruitsAvailable = it) },
-            { mutableScreen1ViewState.value = Screen1ViewState(fruitsFailure = "Failure ... Failure" ?: "NO FAILURE MESSAGE") }
+    private fun countriesApiCall() {
+        Repository.getCountryDataList(
+            { mutableScreen1ViewState.value = Screen1ViewState(countriesAvailable = it) },
+            { mutableScreen1ViewState.value = Screen1ViewState(countriesFailure = it.message ?: "NO FAILURE MESSAGE") }
         )
     }
 }
