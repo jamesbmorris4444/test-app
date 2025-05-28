@@ -11,11 +11,11 @@ import io.reactivex.schedulers.Schedulers
 
 object Repository {
 
-    private val fruitSService: APIInterface = APIClient.client
+    private val fruitsService: APIInterface = APIClient.client
 
     fun getFruitDataList(handleResults: (List<Fruit>) -> Unit, handleError: (Throwable) -> Unit) {
         var disposable: Disposable? = null
-        disposable = fruitSService.getFruitData()
+        disposable = fruitsService.getFruitData()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -26,8 +26,5 @@ object Repository {
                 disposable = null
             })
     }
-
-
-
 
 }
