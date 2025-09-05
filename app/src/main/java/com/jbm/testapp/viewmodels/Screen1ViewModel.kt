@@ -1,10 +1,13 @@
 package com.jbm.testapp.viewmodels
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.jbm.testapp.repository.Repository
 import com.jbm.testapp.viewstates.Screen1ViewState
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 class Screen1ViewModel : ViewModel() {
 
@@ -24,9 +27,11 @@ class Screen1ViewModel : ViewModel() {
     }
 
     private fun countriesApiCall() {
-        Repository.getCountryDataList(
-            { mutableScreen1ViewState.value = Screen1ViewState(countriesAvailable = it) },
-            { mutableScreen1ViewState.value = Screen1ViewState(countriesFailure = it.message ?: "NO FAILURE MESSAGE") }
-        )
+        viewModelScope.launch {
+            Repository.getCountryDataList(
+                { mutableScreen1ViewState.value = Screen1ViewState(countriesAvailable = it) },
+                { mutableScreen1ViewState.value = Screen1ViewState(countriesFailure = it.message ?: "NO FAILURE MESSAGE") }
+            )
+        }
     }
 }
