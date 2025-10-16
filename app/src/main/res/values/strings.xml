@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">Test App</string>
     <string name="screen1_name">Screen One</string>
-    <string name="screen2_name">Screen Two</string>
+    <string name="screenOk_name">Screen Ok</string>
+    <string name="screenErr_name">Screen Err</string>
+    <string name="email_text">Admin Email</string>
+    <string name="password_text">Admin Password</string>
+    <string name="title_text">Employee Directory</string>
 </resources>

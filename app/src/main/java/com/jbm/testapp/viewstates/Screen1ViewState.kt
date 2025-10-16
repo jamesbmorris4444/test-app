@@ -1,9 +1,11 @@
 package com.jbm.testapp.viewstates
 
+import androidx.compose.ui.res.stringResource
+import com.jbm.testapp.R
 import com.jbm.testapp.repository.storage.Country
 
 data class Screen1ViewState (
-    var countriesAvailable: List<Country>? = null,
-    var countriesFailure: String = "",
-    var emptyScreenAfterfailure: List<Country> = listOf()
+    var loginOk: Boolean = true,
+    var emailText: String = "",
+    var passwordText: String = ""
 )
